@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
     <style>
-        * {
+                * {
             font-family:Arial, Helvetica, sans-serif;
         }
         #leftside {
@@ -78,23 +78,27 @@
             text-align: center;
             font-size: 0.85em;
         }
-    </style>
 
-    
+        
 
+        
 </head>
 <body>
-  <aside id="leftside"></aside>
-  <aside id="rightside"></aside>
-  <div id="container">
-    <div id="app">
-      <header><span>Food Blog</span></header>
-      <main>
-        <aside id="photos">
-          <img src="images/chili.jpg" alt="White Chicken Chili" width="180" />
-        </aside>
-        <h2>Comments</h2>
-        <section id="blogposts">
+  <div id="app">
+    <header class="bg-white border-bottom py-3">
+      <div class="container d-flex justify-content-between align-items-center">
+        <h1 class="mb-0">Food Blog</h1>
+        <nav-bar></nav-bar>
+      </div>
+    </header>
+
+    <main class="container my-4">
+      <div class="row">
+        <div class="col-md-4">
+          <food-image></food-image>
+        </div>
+        <div class="col-md-8">
+          <h2 class="text-success text-uppercase">Comments</h2>
           <comment-box
             v-for="(comment, index) in comments"
             :key="index"
@@ -102,19 +106,20 @@
             :date="comment.date"
             :text="comment.text"
           ></comment-box>
-        </section>
-      </main>
-      <footer>
-        &copy; Copyright FOOD BLOG
-      </footer>
-    </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-center py-3 bg-light">
+      &copy; Copyright FOOD BLOG
+    </footer>
   </div>
 
   <script>
     Vue.component('comment-box', {
       props: ['author', 'date', 'text'],
       template: `
-        <div class="post">
+        <div class="comment-box">
           <span class="author">{{ author }}</span> —
           <span class="date">{{ date }}</span>
           <span class="reply">REPLY</span>
@@ -123,29 +128,53 @@
       `
     });
 
+    Vue.component('food-image', {
+      template: `
+        <div class="text-center">
+          <img src="https://cdn.pixabay.com/photo/2016/03/05/19/02/hot-chili-1238302_960_720.jpg" 
+               alt="White Chicken Chili" class="img-fluid rounded shadow">
+        </div>
+      `
+    });
+
+    Vue.component('nav-bar', {
+      template: `
+        <ul class="nav">
+          <li class="nav-item" v-for="link in links" :key="link">
+            <a class="nav-link text-dark" href="#">{{ link }}</a>
+          </li>
+        </ul>
+      `,
+      data() {
+        return {
+          links: ['Home', 'Recipes', 'Lifestyles', 'Videos', 'About']
+        };
+      }
+    });
+
     new Vue({
       el: '#app',
       data: {
         comments: [
           {
             author: 'Brianna',
-            date: 'February 18, 2021 @ 3:30 pm',
-            text: "Was amazing! My Walmart didn’t have coriander in stock and didn’t have ground cumin. I used serrano instead of jalapeño. It was just like my favorite tortilla soup from BJs. I am sending this recipe to my family. I want everyone to try it!"
+            date: 'Feb 18, 2021 @ 3:30 pm',
+            text: "Was amazing! I used serrano instead of jalapeño. Just like my favorite tortilla soup!"
           },
           {
             author: 'LINH',
-            date: 'February 15, 2021 @ 9:46 am',
-            text: "I just made this soup today and it’s so tasty! didn’t have corn at home but still turned out very good. It’s a winner! I made beef chili for my parents; but since my dad has gout he can’t eat beef; this white chicken chili is perfect for him. Thank you Lisa!"
+            date: 'Feb 15, 2021 @ 9:46 am',
+            text: "So tasty! My dad can’t eat beef — this white chicken chili is perfect for him!"
           },
           {
             author: 'CATHERINE LEONARDO',
-            date: 'February 13, 2021 @ 12:58 pm',
-            text: "I LOVE this White Chicken Chili! You are right, it is satiating meal—delicious with toasted bread. Refreshingly different taste than any chicken chili I’ve made in the past..."
+            date: 'Feb 13, 2021 @ 12:58 pm',
+            text: "I LOVE this White Chicken Chili! Refreshingly different taste, freezes very well."
           },
           {
             author: 'KALI',
-            date: 'February 13, 2021 @ 11:31 am',
-            text: "This recipe is dynamite! My partner usually won’t eat beans but he finished the whole pot (darn was hoping to have some for leftovers haha). This is crowd-pleaser that I am going to add to my regular recipe rotation. Thanks so much, Lisa!"
+            date: 'Feb 13, 2021 @ 11:31 am',
+            text: "This recipe is dynamite! Even my partner who won’t eat beans loved it."
           }
         ]
       }
