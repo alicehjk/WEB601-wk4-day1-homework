@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+    link(href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    #app
+      header.bg-white.border-bottom.py-3
+        .container.d-flex.justify-content-between.align-items-center
+          h1.mb-0 Food Blog
+          nav-bar
+
+      main.container.my-4
+        .row
+          .col-md-4
+            food-image
+          .col-md-8
+            h2.text-success.text-uppercase Comments
+            comment-box(v-for="(comment, index) in comments", :key="index", :author="comment.author", :date="comment.date", :text="comment.text")
+
+      footer.text-center.py-3.bg-light
+        | © Copyright FOOD BLOG
+
+    script(src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js")
+    script(src="/javascripts/app.js")
